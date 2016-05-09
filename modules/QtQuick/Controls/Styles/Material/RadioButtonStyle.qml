@@ -51,7 +51,10 @@ RadioButtonStyle {
         color: control.activeFocus ? Theme.alpha(control.color, 0.20) : "transparent"
 
         Rectangle {
-            anchors.centerIn: parent
+            anchors {
+                centerIn: parent
+                alignWhenCentered: false
+            }
 
             implicitWidth: Units.dp(20)
             implicitHeight: Units.dp(20)
