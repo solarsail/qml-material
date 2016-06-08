@@ -38,6 +38,7 @@ Controls.CheckBox {
        Set to \c true if the checkbox is on a dark background
      */
     property bool darkBackground
+    property int textSize
 
     style: MaterialStyle.CheckBoxStyle {}
 

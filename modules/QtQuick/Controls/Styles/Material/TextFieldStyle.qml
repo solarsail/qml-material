@@ -25,7 +25,7 @@ TextFieldStyle {
     id: style
 
     padding {
-        left: 0
+        left: 6
         right: 0
         top: 0
         bottom: 0
@@ -45,6 +45,7 @@ TextFieldStyle {
         id: background
 
         property color color: control.hasOwnProperty("color") ? control.color : Theme.accentColor
+        property color boxColor: control.hasOwnProperty("boxColor") ? control.boxColor : Theme.light.hintColor
         property color errorColor: control.hasOwnProperty("errorColor")
                 ? control.errorColor : Palette.colors["red"]["500"]
         property string helperText: control.hasOwnProperty("helperText") ? control.helperText : ""
@@ -53,6 +54,24 @@ TextFieldStyle {
                 ? control.hasError : characterLimit && control.length > characterLimit
         property int characterLimit: control.hasOwnProperty("characterLimit") ? control.characterLimit : 0
         property bool showBorder: control.hasOwnProperty("showBorder") ? control.showBorder : true
+        property bool showBox: control.hasOwnProperty("showBox") ? control.showBox && !showBorder : false
+
+        Rectangle {
+            id: border
+            radius: 2
+            color: "transparent"
+            border.color: background.hasError ? background.errorColor
+                                    : control.activeFocus ? Theme.accentColor
+                                                          : control.boxColor
+
+            anchors.fill: parent
+            border.width: Units.dp(1)
+            visible: background.showBox
+
+            Behavior on border.color {
+                ColorAnimation { duration: 200 }
+            }
+        }
 
         Rectangle {
             id: underline
@@ -84,8 +103,10 @@ TextFieldStyle {
 
             anchors.verticalCenter: parent.verticalCenter
             text: control.placeholderText
-            font.pixelSize: Units.dp(16)
-            anchors.margins: -Units.dp(12)
+            font.pixelSize: control.font.pixelSize
+            //anchors.margins: -Units.dp(12)
+            anchors.left: parent.left
+            anchors.leftMargin: Units.dp(6)
             color: background.hasError ? background.errorColor
                                   : control.activeFocus && control.text !== ""
                                         ? background.color : Theme.light.hintColor

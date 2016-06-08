@@ -29,6 +29,9 @@ CheckBoxStyle {
     property bool darkBackground: control.hasOwnProperty("darkBackground")
             ? control.darkBackground : false
 
+    property int textSize: control.hasOwnProperty("textSize")
+            ? control.textSize : 14
+
     spacing: 0
 
     label: Item {
@@ -51,6 +54,7 @@ CheckBoxStyle {
                                    : darkBackground ? Theme.alpha("#fff", 0.30)
                                                     : Theme.alpha("#000", 0.26)
             text: control.text
+            font.pixelSize: control.textSize
         }
     }
 
